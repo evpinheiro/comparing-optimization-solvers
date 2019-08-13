@@ -1,0 +1,61 @@
+{
+    "Problem": [
+        {
+            "Lower bound": 1.0,
+            "Name": "unknown",
+            "Number of constraints": 1,
+            "Number of nonzeros": 2,
+            "Number of objectives": 1,
+            "Number of variables": 2,
+            "Sense": "minimize",
+            "Upper bound": 1.0
+        }
+    ],
+    "Solution": [
+        {
+            "number of solutions": 1,
+            "number of solutions displayed": 1
+        },
+        {
+            "Constraint": "No values",
+            "Gap": 0.0,
+            "Message": null,
+            "Objective": {
+                "OBJ": {
+                    "Value": 1.0
+                }
+            },
+            "Problem": {},
+            "Status": "optimal",
+            "Variable": {
+                "x[1]": {
+                    "Value": 2.0
+                },
+                "x[2]": {
+                    "Value": 1.0
+                }
+            }
+        }
+    ],
+    "Solver": [
+        {
+            "Error rc": 0,
+            "Statistics": {
+                "Black box": {
+                    "Number of iterations": 3
+                },
+                "Branch and bound": {
+                    "Number of bounded subproblems": 0,
+                    "Number of created subproblems": 0
+                }
+            },
+            "Status": "ok",
+            "System time": 0.01,
+            "Termination condition": "optimal",
+            "Termination message": "Model was solved to optimality (subject to tolerances), and an optimal solution is available.",
+            "Time": 0.011965274810791016,
+            "User time": -1.0,
+            "Wallclock time": 0.0
+        }
+    ]
+}
