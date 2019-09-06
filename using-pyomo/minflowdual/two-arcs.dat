@@ -1,0 +1,21 @@
+# one way to input the data in AMPL format
+# for indexed parameters, the indexes are given before the value
+
+set Nodes := a b c;
+set Arcs := ab bc;
+
+param a :=
+a ab 1
+a bc 0
+b ab -1
+b bc 1
+c ab 0
+c bc -1
+;
+
+param c:=
+ab 1
+bc 1 
+;
+
+param b := a 1 b 0 c -1;

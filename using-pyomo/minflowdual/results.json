@@ -1,0 +1,68 @@
+{
+    "Problem": [
+        {
+            "Lower bound": 2.0,
+            "Name": "unknown",
+            "Number of constraints": 6,
+            "Number of nonzeros": 0,
+            "Number of objectives": 1,
+            "Number of variables": 3,
+            "Sense": "minimize",
+            "Upper bound": 2.0
+        }
+    ],
+    "Solution": [
+        {
+            "number of solutions": 1,
+            "number of solutions displayed": 1
+        },
+        {
+            "Constraint": {
+                "flowConstraint[a]": {
+                    "Dual": 1.0
+                },
+                "flowConstraint[c]": {
+                    "Dual": -1.0
+                }
+            },
+            "Gap": 0.0,
+            "Message": null,
+            "Objective": {
+                "OBJ": {
+                    "Value": 2.0
+                }
+            },
+            "Problem": {},
+            "Status": "optimal",
+            "Variable": {
+                "x[ab]": {
+                    "Value": 1.0
+                },
+                "x[bc]": {
+                    "Value": 1.0
+                }
+            }
+        }
+    ],
+    "Solver": [
+        {
+            "Error rc": 0,
+            "Statistics": {
+                "Black box": {
+                    "Number of iterations": 0
+                },
+                "Branch and bound": {
+                    "Number of bounded subproblems": null,
+                    "Number of created subproblems": null
+                }
+            },
+            "Status": "ok",
+            "System time": 0.0,
+            "Termination condition": "optimal",
+            "Termination message": "Model was solved to optimality (subject to tolerances), and an optimal solution is available.",
+            "Time": 0.008494138717651367,
+            "User time": -1.0,
+            "Wallclock time": 0.0
+        }
+    ]
+}
