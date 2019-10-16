@@ -45,9 +45,9 @@ def plot_by_value(inclination):
         
 
     print(xy)
-    print(constraint)
-    print(objective)
-    print(constraint[opt_index], objective[opt_index], constraint_left_hand(opt_index))
+    #print(constraint)
+    #print(objective)
+    #print(constraint[opt_index], objective[opt_index], constraint_left_hand(opt_index))
 
     #fig, ax = plt.subplots()
     fig = plt.figure()
@@ -63,11 +63,12 @@ def plot_by_value(inclination):
 
     z = objective
 
-    ax.plot(xs=xf, ys=yf, zs=z, marker="*", zdir='z', label='ys=0, zdir=z')
+    ax.plot(xs=xf, ys=yf, zs=z, marker="*", zdir='z', label='ys=0')
     xLabel = ax.set_xlabel('x1', linespacing=3.2)
     yLabel = ax.set_ylabel('x2', linespacing=3.1)
     zLabel = ax.set_zlabel('z', linespacing=3.4)
 
-    plt.show()
+    #plt.show()
+
 
 plot_by_value(4)
