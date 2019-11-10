@@ -36,7 +36,7 @@ def abstract_model():
     return model
 
 m = abstract_model()
-instance = m.create_instance('/home/eder/py-workspace/comparing-optimization-solvers/using-pyomo/minflowdual/two-arcs.dat')
+instance = m.create_instance('/home/eder/workspace/comparing-optimization-solvers/using-pyomo/minflowdual/two-arcs.dat')
 opt = SolverFactory('cbc')
 opt.solve(instance)
 instance.dual.display()
