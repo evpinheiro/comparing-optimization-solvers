@@ -5,7 +5,6 @@ Authors: Antony Phillips, Dr Stuart Mitcehll
 """
 # Import PuLP modeler functions
 from pulp import *
-import os
 
 # A list of strings from "1" to "9" is created
 Sequence = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -19,10 +18,10 @@ Cols = Sequence
 Boxes =[]
 for i in range(3):
     for j in range(3):
-        Boxes += [[(Rows[3*i+k],Cols[3*j+l]) for k in range(3) for l in range(3)]]
+        Boxes += [[(Rows[3*i+k], Cols[3*j+l]) for k in range(3) for l in range(3)]]
 
 # The prob variable is created to contain the problem data
-prob = LpProblem("Sudoku Problem",LpMinimize)
+prob = LpProblem("Sudoku Problem", LpMinimize)
 
 # The problem variables are created
 choices = LpVariable.dicts("Choice",(Vals,Rows,Cols),0,1,LpInteger)
@@ -38,44 +37,44 @@ for r in Rows:
 # The row, column and box constraints are added for each value
 for v in Vals:
     for r in Rows:
-        prob += lpSum([choices[v][r][c] for c in Cols]) == 1,""
+        prob += lpSum([choices[v][r][c] for c in Cols]) == 1, ""
 
     for c in Cols:
-        prob += lpSum([choices[v][r][c] for r in Rows]) == 1,""
+        prob += lpSum([choices[v][r][c] for r in Rows]) == 1, ""
 
     for b in Boxes:
-        prob += lpSum([choices[v][r][c] for (r,c) in b]) == 1,""
+        prob += lpSum([choices[v][r][c] for (r,c) in b]) == 1, ""
 
 # The starting numbers are entered as constraints
-prob += choices["5"]["1"]["1"] == 1,""
-prob += choices["6"]["2"]["1"] == 1,""
-prob += choices["8"]["4"]["1"] == 1,""
-prob += choices["4"]["5"]["1"] == 1,""
-prob += choices["7"]["6"]["1"] == 1,""
-prob += choices["3"]["1"]["2"] == 1,""
-prob += choices["9"]["3"]["2"] == 1,""
-prob += choices["6"]["7"]["2"] == 1,""
-prob += choices["8"]["3"]["3"] == 1,""
-prob += choices["1"]["2"]["4"] == 1,""
-prob += choices["8"]["5"]["4"] == 1,""
-prob += choices["4"]["8"]["4"] == 1,""
-prob += choices["7"]["1"]["5"] == 1,""
-prob += choices["9"]["2"]["5"] == 1,""
-prob += choices["6"]["4"]["5"] == 1,""
-prob += choices["2"]["6"]["5"] == 1,""
-prob += choices["1"]["8"]["5"] == 1,""
-prob += choices["8"]["9"]["5"] == 1,""
-prob += choices["5"]["2"]["6"] == 1,""
-prob += choices["3"]["5"]["6"] == 1,""
-prob += choices["9"]["8"]["6"] == 1,""
-prob += choices["2"]["7"]["7"] == 1,""
-prob += choices["6"]["3"]["8"] == 1,""
-prob += choices["8"]["7"]["8"] == 1,""
-prob += choices["7"]["9"]["8"] == 1,""
-prob += choices["3"]["4"]["9"] == 1,""
-#prob += choices["1"]["5"]["9"] == 1,""
-prob += choices["6"]["6"]["9"] == 1,""
-prob += choices["5"]["8"]["9"] == 1,""
+prob += choices["5"]["1"]["1"] == 1, ""
+prob += choices["6"]["2"]["1"] == 1, ""
+prob += choices["8"]["4"]["1"] == 1, ""
+prob += choices["4"]["5"]["1"] == 1, ""
+prob += choices["7"]["6"]["1"] == 1, ""
+prob += choices["3"]["1"]["2"] == 1, ""
+prob += choices["9"]["3"]["2"] == 1, ""
+prob += choices["6"]["7"]["2"] == 1, ""
+prob += choices["8"]["3"]["3"] == 1, ""
+prob += choices["1"]["2"]["4"] == 1, ""
+prob += choices["8"]["5"]["4"] == 1, ""
+prob += choices["4"]["8"]["4"] == 1, ""
+prob += choices["7"]["1"]["5"] == 1, ""
+prob += choices["9"]["2"]["5"] == 1, ""
+prob += choices["6"]["4"]["5"] == 1, ""
+prob += choices["2"]["6"]["5"] == 1, ""
+prob += choices["1"]["8"]["5"] == 1, ""
+prob += choices["8"]["9"]["5"] == 1, ""
+prob += choices["5"]["2"]["6"] == 1, ""
+prob += choices["3"]["5"]["6"] == 1, ""
+prob += choices["9"]["8"]["6"] == 1, ""
+prob += choices["2"]["7"]["7"] == 1, ""
+prob += choices["6"]["3"]["8"] == 1, ""
+prob += choices["8"]["7"]["8"] == 1, ""
+prob += choices["7"]["9"]["8"] == 1, ""
+prob += choices["3"]["4"]["9"] == 1, ""
+# prob += choices["1"]["5"]["9"] == 1, ""
+prob += choices["6"]["6"]["9"] == 1, ""
+prob += choices["5"]["8"]["9"] == 1, ""
 
 
 # The problem data is written to an .lp file
