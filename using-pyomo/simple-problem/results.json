@@ -3,7 +3,9 @@
         {
             "Lower bound": 1.0,
             "Name": "unknown",
+            "Number of binary variables": 0,
             "Number of constraints": 1,
+            "Number of integer variables": 2,
             "Number of nonzeros": 2,
             "Number of objectives": 1,
             "Number of variables": 2,
@@ -50,12 +52,12 @@
                 }
             },
             "Status": "ok",
-            "System time": 0.01,
+            "System time": 0.0,
             "Termination condition": "optimal",
             "Termination message": "Model was solved to optimality (subject to tolerances), and an optimal solution is available.",
-            "Time": 0.011965274810791016,
+            "Time": 0.0541384220123291,
             "User time": -1.0,
-            "Wallclock time": 0.0
+            "Wallclock time": 0.04
         }
     ]
 }
