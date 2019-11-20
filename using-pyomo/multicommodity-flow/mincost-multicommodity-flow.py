@@ -27,7 +27,7 @@ class Graph:
         self.nodes_demands = nodes
 
 
-def multicommodity_minimum_cost_flow(graphs: list, common_arcs: list):
+def multicommodity_minimum_cost_flow(graphs: list, common_arcs: list, integer: bool):
     modelo = pe.ConcreteModel(name="MCFP")
     # modelo.commodity_set = pe.Set(initialize=graphs)
     modelo.dual = pe.Suffix(direction=pe.Suffix.IMPORT)
@@ -35,7 +35,7 @@ def multicommodity_minimum_cost_flow(graphs: list, common_arcs: list):
     commodities_arcs = {(graph_k.commodity_name, str(arc[0])):
                             arc for graph_k in graphs for arc in graph_k.arcs_cost_cap.items()}
     modelo.var_indexes = commodities_arcs.keys()
-    modelo.var = pe.Var(modelo.var_indexes, within=pe.NonNegativeReals)
+    modelo.var = pe.Var(modelo.var_indexes, within=pe.NonNegativeIntegers if integer else pe.NonNegativeReals)
 
     def objetivo(m):
         return sum(commodities_arcs[index][1][0] * m.var[index] for index in modelo.var_indexes)
@@ -87,7 +87,9 @@ graph_2 = Graph('s2-t2', {node_s1: 0, node_t1: 0, node_s2: 5, node_t2: -5},
 
 graph_list = [graph_1, graph_2]
 
-multicommodity_minimum_cost_flow(graph_list, [arc_s1_t2, arc_s1_t1, arc_t2_s2, arc_s2_s1, arc_s2_t1, arc_t1_t2])
+multicommodity_minimum_cost_flow(graph_list,
+                                 [arc_s1_t2, arc_s1_t1, arc_t2_s2, arc_s2_s1, arc_s2_t1, arc_t1_t2],
+                                 False)
 
 # arc12 = Arc(node1, node2, 5)
 # arc14 = Arc(node1, node4, 5)
