@@ -44,14 +44,14 @@ def subgradient_method(uk, mik = 0.1, pho=0.95, max_iterations=100):
     results_xuk = []
     k = 1
     while k < max_iterations:
-        (zuk, xuk) = lr(uk)
+        (zuk, xuk) = LR(uk)
         results_xuk.append(xuk)
         results_zk.append(zuk)
         dk = subgradient(xuk)
         uk = [uk[i] - mik*dk[i] for i in range(len(dk))]
         mik = pho*mik
+        print(k, [round(uk[k],4) for k in range(len(uk))], round(zuk, 4), dk, xuk, objective_function(xuk))
         k = k + 1
-        print(k, [round(uk[k],4) for k in range(len(uk))], round(zuk,4), dk, xuk, objective_function(xuk))
 
 
 subgradient_method([0, 0])
