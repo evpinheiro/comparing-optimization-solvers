@@ -29,7 +29,7 @@ class Graph:
 
 def multicommodity_minimum_cost_flow(graphs: list, common_arcs: list, integer: bool):
     modelo = pe.ConcreteModel(name="MCFP")
-    # modelo.commodity_set = pe.Set(initialize=graphs)
+
     modelo.dual = pe.Suffix(direction=pe.Suffix.IMPORT)
 
     commodities_arcs = {(graph_k.commodity_name, str(arc[0])):
@@ -54,11 +54,17 @@ def multicommodity_minimum_cost_flow(graphs: list, common_arcs: list, integer: b
     modelo.commodities_nodes_indexes = range(len(commodities_nodes))
     modelo.flow_conservation = pe.Constraint(modelo.commodities_nodes_indexes, rule=conserva_fluxo)
 
-    def capacidades(m, index):
+    def capacidades_conjuntas(m, index):
         return sum(m.var[(commodity.commodity_name, str(common_arcs[index]))] for commodity in graphs) <= common_arcs[
             index].capacity
 
-    modelo.capacidade_arco = pe.Constraint(range(len(common_arcs)), rule=capacidades)
+    modelo.capacidade_conjunta_arco = pe.Constraint(range(len(common_arcs)), rule=capacidades_conjuntas)
+
+    def capacidades(m, commodity, arc):
+        var_index = (commodity, arc)
+        return m.var[var_index] <= commodities_arcs.get(var_index)[1][1]
+
+    modelo.capacidade = pe.Constraint(modelo.var_indexes, rule=capacidades)
 
     solver = pyomo.opt.SolverFactory('cbc')
     results = solver.solve(modelo)
@@ -71,17 +77,17 @@ node_t1 = Node('t1')
 node_s2 = Node('s2')
 node_t2 = Node('t2')
 
-arc_s1_t2 = Arc(node_s1, node_t2, 5)
-arc_s1_t1 = Arc(node_s1, node_t1, 5)
-arc_t2_s2 = Arc(node_t2, node_s2, 5)
-arc_s2_s1 = Arc(node_s2, node_s1, 5)
-arc_s2_t1 = Arc(node_s2, node_t1, 5)
-arc_t1_t2 = Arc(node_t1, node_t2, 5)
+arc_s1_t2 = Arc(node_s1, node_t2, 25)
+arc_s1_t1 = Arc(node_s1, node_t1, 25)
+arc_t2_s2 = Arc(node_t2, node_s2, 25)
+arc_s2_s1 = Arc(node_s2, node_s1, 25)
+arc_s2_t1 = Arc(node_s2, node_t1, 25)
+arc_t1_t2 = Arc(node_t1, node_t2, 25)
 
-graph_1 = Graph('s1-t1', {node_s1: 5, node_t1: -5, node_s2: 0, node_t2: 0},
+graph_1 = Graph('1', {node_s1: 5, node_t1: -5, node_s2: 0, node_t2: 0},
                 {arc_s1_t2: (1, 15), arc_s1_t1: (4, 15), arc_t2_s2: (1, 15),
                  arc_s2_s1: (1, 15), arc_s2_t1: (1, 15), arc_t1_t2: (1, 15)})
-graph_2 = Graph('s2-t2', {node_s1: 0, node_t1: 0, node_s2: 5, node_t2: -5},
+graph_2 = Graph('2', {node_s1: 0, node_t1: 0, node_s2: 5, node_t2: -5},
                 {arc_s1_t2: (1, 15), arc_s1_t1: (1, 15), arc_t2_s2: (1, 15),
                  arc_s2_s1: (1, 15), arc_s2_t1: (1, 15), arc_t1_t2: (1, 15)})
 
@@ -89,7 +95,7 @@ graph_list = [graph_1, graph_2]
 
 multicommodity_minimum_cost_flow(graph_list,
                                  [arc_s1_t2, arc_s1_t1, arc_t2_s2, arc_s2_s1, arc_s2_t1, arc_t1_t2],
-                                 False)
+                                 True)
 
 # arc12 = Arc(node1, node2, 5)
 # arc14 = Arc(node1, node4, 5)
