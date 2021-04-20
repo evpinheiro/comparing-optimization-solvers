@@ -16,7 +16,7 @@ wcwidth==0.1.7
 zipp==0.6.0
 
 # Deps do pytest
-py==1.8.0
+py==1.10.0
 more-itertools==7.2.0
 six==1.12.0
 attrs==19.3.0
